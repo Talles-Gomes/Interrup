@@ -3,65 +3,48 @@
 #include "matriz_leds.h"
 #include "pico/bootrom.h"
 
+
 int main()
 {
+    uint leitura;
     PIO pio = pio0;
     uint sm = configurar_matriz(pio);
-    config_animacoes();
-    keypad_init();
     while (true)
     {
-        char leitura = read_keypad();
+        
         switch(leitura)
         {
-            case 'A' :
-                tecla_A(pio, sm); // Desliga todos os leds
+            case 0 :
+                num0(pio, sm); // número 0
                 break;
-            case 'B' :
-                tecla_B(pio, sm); // Acende os leds azuis com 100% de intensidade
+            case 1 :
+                num1(pio, sm);// número 1
                 break;
-            case 'C' :
-                tecla_C(pio, sm); // Acende os leds vermelhos com 80% de intensidade
+            case 2 :
+                num2(pio, sm); // número 2
                 break;
-            case 'D' :
-                tecla_D(pio, sm); // Acende os leds verdes com 50% de intensidade
+            case 3 :
+                num3(pio, sm); // número 3
                 break;
-            case '#' :
-                branco(pio, sm); // Acende os leds brancos com 20% de intensidade
+            case 4 :
+                num4(pio,sm); // número 4
                 break;
-            case '1' :
-                 // Animação de Douglas
+            case 5 :
+                num5(pio, sm); // número 5
                 break;
-            case '2' :
-                animacao_g(pio, sm); // Animação de Ana Luiza
-            break;
-            case '3' :
-                jogo_da_cobrinha(pio, sm); // Animação Leonardo
+            case 6 :
+                num6(pio, sm); // número 6
                 break;
-            case '4' :
-                executar_animacao(0,pio,sm); // Animação de Alisson
+            case 7 :
+                num7(pio, sm); // número 7
                 break;
-            case '5' :
-                anima_05(pio, sm); // Animação de Talles Gomes
+            case 8 :
+                num8(pio, sm); // número 8
                 break;
-            case '6' :
-                animacao_onda(pio, sm); // Animação de Carolina
+            case 9 :
+                num9(pio, sm); // número 9
                 break;
-            case '7' :
-                animacao_b(pio, sm); // Animação de Enzo Lisboa
-                break;
-            case '8' :
-                animacao(pio, sm); // Animação de João, joaoeman
-                break;
-            case '9' :
-                animacao_c(pio, sm); // Animação de Enzo Lisboa
-                break;
-            case '0' :
-                animacao_d(pio, sm); // Animação de Enzo Lisboa
-                break;
-            case '*' :
-                reset_usb_boot(0, 0); // Comando de bootSel
-                break;
+
         }
     }
 }

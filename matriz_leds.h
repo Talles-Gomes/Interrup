@@ -24,18 +24,14 @@ void config_animacoes();
 RGB_cod obter_cor_por_parametro_RGB(int red, int green, int blue);
 
 //funções da tarefa
-void keypad_init();
-char read_keypad();
-void animacao(PIO pio, uint sm);
-void animacao_b(PIO pio, uint sm);
-void animacao_c(PIO pio, uint sm);
-void animacao_d(PIO pio, uint sm);
-void anima_05(PIO pio, uint sm);
-void branco(PIO pio, uint sm);
-void jogo_da_cobrinha(PIO pio, uint sm);
-void animacao_g(PIO pio, uint sm);
-void tecla_A(PIO pio, uint sm);
-void tecla_B(PIO pio, uint sm);
-void tecla_C(PIO pio, uint sm);
-void tecla_D(PIO pio, uint sm);
-void animacao_onda(PIO pio, uint sm);
+
+void num0(PIO pio, uint sm);
+void num1(PIO pio, uint sm);
+void num2(PIO pio, uint sm);
+void num3(PIO pio, uint sm);
+void num4(PIO pio, uint sm);
+void num5(PIO pio, uint sm);
+void num6(PIO pio, uint sm);
+void num7(PIO pio, uint sm);
+void num8(PIO pio, uint sm);
+void num9(PIO pio, uint sm);
