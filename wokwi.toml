@@ -1,4 +1,0 @@
-[wokwi]
-version = 1
-firmware = 'build/tarefa_embarca.uf2'
-elf = 'tarefa_embarca.elf'

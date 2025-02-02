@@ -22,7 +22,7 @@ void acionar_led_vermelho()
 void gpio_irq_handler(uint gpio,uint32_t events)
     {
         uint32_t current_time = to_us_since_boot(get_absolute_time());
-        if(current_time - last_time > 100000) // 100 ms de debouncing
+        if(current_time - last_time > 200000) // 200 ms de debouncing
         {
             last_time = current_time;
             if(gpio == 5 && leitura < 9){
@@ -37,7 +37,7 @@ void gpio_irq_handler(uint gpio,uint32_t events)
     }
 int main()
 {
-     PIO pio = pio0;
+    PIO pio = pio0;
     uint sm = configurar_matriz(pio);
 
     gpio_init(led_R);
