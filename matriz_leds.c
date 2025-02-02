@@ -149,7 +149,7 @@ void executar_animacao(int num_animacao,PIO pio, uint sm){
     }
 }
 // funções da tarefa do embarcatech
-#define tempo_frame 100
+
 
 void num0(PIO pio, uint sm)
 {
