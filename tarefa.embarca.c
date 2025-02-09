@@ -3,6 +3,13 @@
 #include "matriz_leds.h"
 #include "pico/bootrom.h"
 #include "hardware/timer.h"
+#include "hardware/i2c.h"
+#include "inc/ssd1306.h"
+#include "inc/font.h"
+#define I2C_PORT i2c1
+#define I2C_SDA 14
+#define I2C_SCL 15
+#define endereco 0x3C
 
 #define Tempo_led 100 
 const uint led_R = 13;
@@ -12,13 +19,7 @@ int leitura = 0;
 
 static void gpio_irq_handler(uint gpio,uint32_t events);
 static volatile uint32_t last_time = 0;
-void acionar_led_vermelho() 
-{ 
-    gpio_put(led_R, 1);
-    sleep_ms(Tempo_led);
-    gpio_put(led_R, 0);
-    sleep_ms(Tempo_led);
-}
+
 void gpio_irq_handler(uint gpio,uint32_t events)
     {
         uint32_t current_time = to_us_since_boot(get_absolute_time());
@@ -37,6 +38,21 @@ void gpio_irq_handler(uint gpio,uint32_t events)
     }
 int main()
 {
+    // I2C Initialisation. Using it at 400Khz.
+    i2c_init(I2C_PORT, 400 * 1000);
+
+    gpio_set_function(I2C_SDA, GPIO_FUNC_I2C); // Set the GPIO pin function to I2C
+    gpio_set_function(I2C_SCL, GPIO_FUNC_I2C); // Set the GPIO pin function to I2C
+    gpio_pull_up(I2C_SDA); // Pull up the data line
+    gpio_pull_up(I2C_SCL); // Pull up the clock line
+    sd1306_t ssd; // Inicializa a estrutura do display
+    ssd1306_init(&ssd, WIDTH, HEIGHT, false, endereco, I2C_PORT); // Inicializa o display
+    ssd1306_config(&ssd); // Configura o display
+    ssd1306_send_data(&ssd); // Envia os dados para o display
+
+    // Limpa o display. O display inicia com todos os pixels apagados.
+     ssd1306_fill(&ssd, false);
+    ssd1306_send_data(&ssd);
     PIO pio = pio0;
     uint sm = configurar_matriz(pio);
 
@@ -55,7 +71,6 @@ int main()
     gpio_set_irq_enabled_with_callback(botB,GPIO_IRQ_EDGE_FALL,true, &gpio_irq_handler);
     while (true)
     {
-        acionar_led_vermelho();
         switch(leitura)
         {
             case 0 :
